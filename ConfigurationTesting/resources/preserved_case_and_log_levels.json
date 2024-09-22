@@ -1,0 +1,17 @@
+{
+    "Serilog": {
+        "WriteTo": [
+            {
+                "Name": "File",
+                "Args": {
+                    "path": "..\\..\\..\\resources\\tmp\\testlog_preserved.txt",
+                    "formatter": {
+                        "type": "Serilog.Logfmt.LogfmtFormatter, Serilog.Logfmt",
+                        "PreserveCase": "true",
+                        "PreserveSerilogLogLevels": "true"
+                    }
+                }
+            }
+        ]
+    }
+}

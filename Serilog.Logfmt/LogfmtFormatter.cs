@@ -25,6 +25,67 @@ namespace Serilog.Logfmt
             _propertyKeyFilter = _options.PropertyKeyFilter;
         }
 
+        public LogfmtFormatter(bool PreserveCase = false, bool PreserveSerilogLogLevels = false, string ComplexPropertySeparator = ".",
+                                bool IncludeAllProperties = false, string OnDoubleQuotes = "Remove", string StackTraceFormat = "None", 
+                                List<string> ExceptionDataFormat = null)
+        {
+            if (ExceptionDataFormat == null) 
+            {
+                ExceptionDataFormat = new List<string>{"Message","Type","Level"};
+            }
+            Action<LogfmtOptions> optionsAction = null;
+            if (PreserveCase) optionsAction += options => options.PreserveCase();
+            if (PreserveSerilogLogLevels) optionsAction += options => options.PreserveSerilogLogLevels();
+            if (IncludeAllProperties) optionsAction += options => options.IncludeAllProperties();
+
+            optionsAction += options => options.UseComplexPropertySeparator(ComplexPropertySeparator);
+
+            switch (OnDoubleQuotes) 
+            {
+                case "Escape":
+                    optionsAction += options => options.OnDoubleQuotes(q => q.Escape());
+                    break;
+                case "ConvertToSingle":
+                    optionsAction += options => options.OnDoubleQuotes(q => q.ConvertToSingle());
+                    break;
+                case "Preserve":
+                    optionsAction += options => options.OnDoubleQuotes(q => q.Preserve());
+                    break;
+                default:
+                case "Remove":
+                    optionsAction += options => options.OnDoubleQuotes(q => q.Remove());
+                    break;
+            }
+
+            Action<LogExceptionOptions> exceptionsOptionsAction = null;
+
+            switch (StackTraceFormat) 
+            {
+                case "All":
+                    exceptionsOptionsAction += exceptionOptions => exceptionOptions.LogStackTrace(LogfmtStackTraceFormat.All);
+                    break;
+                case "SingleLine":
+                    exceptionsOptionsAction += exceptionOptions => exceptionOptions.LogStackTrace(LogfmtStackTraceFormat.SingleLine);
+                    break;
+                default:
+                case "None":
+                    exceptionsOptionsAction += exceptionOptions => exceptionOptions.LogStackTrace(LogfmtStackTraceFormat.None);
+                    break;
+            }
+
+            LogfmtExceptionDataFormat exceptionDataFlag = 0;
+            if (ExceptionDataFormat.Contains("Type")) exceptionDataFlag |= LogfmtExceptionDataFormat.Type;
+            if (ExceptionDataFormat.Contains("Message")) exceptionDataFlag |= LogfmtExceptionDataFormat.Message;
+            if (ExceptionDataFormat.Contains("Level")) exceptionDataFlag |= LogfmtExceptionDataFormat.Level;
+            exceptionsOptionsAction += exceptionOptions => exceptionOptions.LogExceptionData(exceptionDataFlag);
+
+            optionsAction += options => options.OnException(exceptionsOptionsAction);
+
+            _options = new LogfmtOptions();
+            optionsAction?.Invoke(_options);
+            _propertyKeyFilter = _options.PropertyKeyFilter;
+        }
+
         public void Format(LogEvent logEvent, TextWriter output)
         {
             if (logEvent == null) throw new ArgumentNullException(nameof(logEvent));

@@ -1,0 +1,5 @@
+ts=2024-09-22T22:46:31.8790575Z level=err msg="this is a test!"
+ts=2024-09-22T22:47:22.1503711Z level=err complex="{ A = alpha, B = beta }" msg="this is a test!"
+ts=2024-09-22T22:48:14.0440113Z level=err complex.name="Property DOUBLE QUOTES on it" complex.when="22/09/2024 22:48:14" complex.value=42 complex.sub.name=Test complex.sub.iv=32   msg="this is a test!"
+ts=2024-09-22T22:48:46.1693296Z level=err complex.a=alpha complex.b=beta  msg="this is a test!"
+ts=2024-09-22T22:49:16.9228369Z level=err complex:a=alpha complex:b=beta  msg="this is a test!"
