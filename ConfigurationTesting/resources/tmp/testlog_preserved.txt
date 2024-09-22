@@ -1,5 +1,0 @@
-ts=2024-09-22T22:46:31.8648941Z level=Warning msg="this is a test!"
-ts=2024-09-22T22:47:22.1338149Z level=Warning msg="this is a test!"
-ts=2024-09-22T22:48:14.0272200Z level=Warning msg="this is a test!"
-ts=2024-09-22T22:48:46.1494234Z level=Warning msg="this is a test!"
-ts=2024-09-22T22:49:16.8977256Z level=Warning msg="this is a test!"

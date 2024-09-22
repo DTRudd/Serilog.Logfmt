@@ -29,8 +29,4 @@
     <ProjectReference Include="..\Serilog.Logfmt\Serilog.Logfmt.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="resources\tmp\" />
-  </ItemGroup>
-
 </Project>

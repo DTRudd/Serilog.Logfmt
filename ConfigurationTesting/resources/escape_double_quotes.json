@@ -4,12 +4,10 @@
             {
                 "Name": "File",
                 "Args": {
-                    "path": "..\\..\\..\\resources\\tmp\\testlog_preserved_case_and_log_levels.txt",
+                    "path": "..\\..\\..\\resources\\tmp\\testlog_escape_doubles.txt",
                     "formatter": {
                         "type": "Serilog.Logfmt.LogfmtFormatter, Serilog.Logfmt",
-                        "PreserveCase": "true",
-                        "PreserveSerilogLogLevels": "true",
-                        "IncludeAllProperties": "true"
+                        "OnDoubleQuotes": "Escape"
                     }
                 }
             }
