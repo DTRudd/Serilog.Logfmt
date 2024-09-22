@@ -164,6 +164,6 @@ public class ConfigurationTests : IDisposable
 
     public void Dispose()
     {
-        Directory.Delete(basefolder + "\\resources\\tmp");
+        Directory.Delete(basefolder + "\\resources\\tmp", true);
     }
 }
